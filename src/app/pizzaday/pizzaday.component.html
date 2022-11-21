@@ -1,0 +1,76 @@
+<div id="bgc" class="container-fluid main-container ">
+<div class="container">
+  <div class="col-lg-12">
+    <div id="content_box">
+      <div class="row m-3">
+        <div class="col-lg-4" [class.centerData]="!userData">
+          <h3>Foodmato</h3>
+          <p>Delivering your happiness</p>
+
+          <div *ngIf="userData" id="box1">
+            <h4>Hi {{userData.fname}},</h4>
+            <h5>Your order details: </h5>
+            <p>fooditem: {{userData.food}}</p>
+            <p>quantity: 1 {{userData.quantity}}</p>
+            <p>size:  {{userData.size}}</p>
+            <p>price: {{fooditem.price | currency:'INR'}}</p>
+          
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <h3>Enter customer details</h3>
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <div class="form-group mr-2">
+              <label for="name"> Name</label>
+              <input required ngModel type="text" [pattern]="nameRegex" class="form-control" id="input1" placeholder="Enter your name here"
+                name="fname" #fname="ngModel">
+              <div class="alert1" *ngIf="!fname.valid && fname">Enter a name</div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group mr-2">
+                  <label for="exampleFormControlInput1">Email address</label>
+                  <input required ngModel [pattern]="emailRegex" type="email" class="form-control" id="input1" placeholder="name@example.com"
+                    name="fmail" #fmail="ngModel">
+                  <div class="alert1" *ngIf="!fmail.valid && fmail">Enter your mail</div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group mr-2 lg-3">
+                  <label for="exampleFormControlInput1">Mobile number</label>
+
+                  <input required ngModel type="tel" pattern="[0-9]{10}" class="form-control" id="input1" placeholder="Your 10 digit Mobile number" name="fno"
+                    #fno="ngModel">
+                  <div class="alert1" *ngIf="!fno.valid && fno">Enter your number here</div>
+                </div>
+              </div>
+            </div>
+            <div id="line1"></div>
+            <h3>Order your food here</h3>
+            <div class="form-group">
+              <label id="size1" for="inputState">Choose the dish: </label>
+              <select name="food" id="food" ngModel name="food" #food="ngModel" required>
+                <option *ngFor="let food of foods" [value]="food">{{food}}</option>
+              </select>
+              <div class="alert1" *ngIf="!food.valid && food">Select a food item from the dropdown menu </div>
+            </div>
+            <label id="size1" for="inputState">select the size:  </label>
+            <div *ngFor="let size of sizes" class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="size" id="size" ngModel name="size" #size="ngModel" required
+                [value]="size">
+              <label class="form-check-label text-white" for="size">
+                {{size}}
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Extra instructions to add: </label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <button [disabled]="!f.valid" type="submit" class="btn btn-primary my-3">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
